@@ -96,6 +96,12 @@
   .hero-cta{position:relative;z-index:2;margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
   .btn.ghost{background:rgba(22,14,51,.35);border:1.5px solid rgba(255,243,226,.45);box-shadow:none;color:var(--sand);backdrop-filter:blur(4px)}
   .btn.ghost:hover{border-color:var(--sand);background:rgba(255,255,255,.1)}
+  @media(max-width:768px){ .hero-video{display:none} }
+  @media(max-width:600px){
+    .hero{padding:104px 18px 56px}
+    .hero h1{font-size:clamp(48px,15.5vw,88px)}
+    .hero h1 .o{display:block}
+  }
 
   /* countdown */
   .countdown{position:relative;z-index:2;display:flex;gap:14px;margin-top:48px}
@@ -195,7 +201,7 @@
 <header class="hero" id="top">
   <div class="hero-bg"></div>
   <img class="hero-photo" src="assets/hero.webp" alt="" />
-  <video class="hero-video" id="hero-video" src="assets/hero.mp4" poster="assets/hero.webp" autoplay muted loop playsinline></video>
+  <video class="hero-video" id="hero-video" poster="assets/hero.webp" muted loop playsinline preload="none"></video>
   <div class="hero-scrim"></div>
   <div class="sun"></div>
   <div class="float s1" style="top:18%;left:12%">🐚</div>
@@ -372,11 +378,16 @@
     let mT; addEventListener('resize',()=>{clearTimeout(mT);mT=setTimeout(buildMarquee,200);});
   }
 
-  // hero video fades in once it has data; if the file is missing the photo stays
+  // hero video: alleen op desktop laden (mobiel = lichte statische foto, geen play-knop / geen 11MB-download)
   const hv=document.getElementById('hero-video');
   if(hv){
     hv.addEventListener('loadeddata',()=>hv.classList.add('on'));
     hv.addEventListener('error',()=>hv.style.display='none');
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(window.innerWidth>768 && !reduce){
+      hv.src='assets/hero.mp4';
+      hv.play().catch(()=>{});
+    }
   }
 </script>
 </body>
