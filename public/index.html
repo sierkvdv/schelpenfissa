@@ -94,6 +94,10 @@
   .hero .sub{position:relative;z-index:2;margin-top:24px;font-size:clamp(16px,2.4vw,22px);font-weight:500;opacity:.97;text-shadow:0 2px 16px rgba(0,0,0,.55)}
   .hero .sub b{color:var(--teal)}
   .hero-cta{position:relative;z-index:2;margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .hero-org{position:relative;z-index:2;margin-top:40px;display:inline-flex;flex-direction:column;align-items:center;gap:7px;padding:13px 24px 15px;border-radius:18px;background:rgba(22,14,51,.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);transition:transform .2s,background .2s}
+  .hero-org:hover{transform:translateY(-2px);background:rgba(22,14,51,.95)}
+  .hero-org span{font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.6}
+  .hero-org img{width:clamp(86px,13vw,112px);height:auto;display:block}
   .btn.ghost{background:rgba(22,14,51,.35);border:1.5px solid rgba(255,243,226,.45);box-shadow:none;color:var(--sand);backdrop-filter:blur(4px)}
   .btn.ghost:hover{border-color:var(--sand);background:rgba(255,255,255,.1)}
   @media(max-width:768px){ .hero-video{display:none} }
@@ -101,6 +105,7 @@
     .hero{padding:104px 18px 56px}
     .hero h1{font-size:clamp(48px,15.5vw,88px)}
     .hero h1 .o{display:block}
+    .float{display:none}
   }
 
   /* countdown */
@@ -226,6 +231,11 @@
     <a href="#info" class="btn">Alle info ↓</a>
     <a href="#insta" class="btn ghost">Volg @schelpenfissa</a>
   </div>
+
+  <a class="hero-org" href="https://instagram.com/projectfidelio" target="_blank" rel="noopener" aria-label="Project Fidelio">
+    <span>een productie van</span>
+    <img src="assets/fidelio-color.svg" alt="Project Fidelio" />
+  </a>
 </header>
 
 <!-- MARQUEE -->
