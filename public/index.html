@@ -169,6 +169,11 @@
   .foot-logo{width:clamp(150px,32vw,210px);height:auto;display:block;margin:0 auto 26px;border-radius:20px}
   footer .big{font-family:'Clash Display';font-weight:700;font-size:clamp(40px,9vw,110px);background:linear-gradient(100deg,var(--coral),var(--teal));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:.95}
   footer .mini{opacity:.55;font-size:13px;margin-top:24px}
+  .presented{margin-top:50px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .presented span{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.5}
+  .presented a{display:inline-block;transition:transform .25s,opacity .25s;opacity:.92}
+  .presented a:hover{transform:translateY(-3px);opacity:1}
+  .presented img{width:clamp(140px,30vw,188px);height:auto;display:block}
 
   .map{margin-top:40px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.12);filter:grayscale(.2) contrast(1.05)}
   .map iframe{display:block;width:100%;height:380px;border:0}
@@ -324,6 +329,12 @@
     <img class="foot-logo" src="assets/logo.svg" alt="Schelpenfissa" />
     <div class="big">ZIE JE<br>OP HET STRAND</div>
     <p class="mini">SCHELPENFISSA · Muiderberg · 15 augustus 2026 · gemaakt met 🐚 &amp; zonneschijn</p>
+    <div class="presented">
+      <span>Een productie van</span>
+      <a href="https://instagram.com/projectfidelio" target="_blank" rel="noopener" aria-label="Project Fidelio">
+        <img src="assets/fidelio-color.svg" alt="Project Fidelio" />
+      </a>
+    </div>
   </div>
 </footer>
 
