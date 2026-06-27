@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SCHELPENFISSA · Strandfeest Muiderberg · 15 augustus</title>
+<meta name="description" content="Het jaarlijkse strandfeest is terug. Schelpenfissa — Muiderberg strand, 15 augustus. Zon, zee, schelpen en de beste beats." />
+<meta property="og:title" content="SCHELPENFISSA — We zijn terug" />
+<meta property="og:description" content="Strandfeest · Muiderberg · 15 augustus. Zet 'm in je agenda." />
+<meta property="og:image" content="https://schelpenfissa.com/assets/hero.png" />
+<meta property="og:url" content="https://schelpenfissa.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="nl_NL" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SCHELPENFISSA — We zijn terug" />
+<meta name="twitter:description" content="Strandfeest · Muiderberg · 15 augustus." />
+<meta name="twitter:image" content="https://schelpenfissa.com/assets/hero.png" />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --coral:#FF6B5E;
+    --pink:#FF3D81;
+    --tangerine:#FF9F45;
+    --dusk:#160E33;
+    --dusk2:#241552;
+    --teal:#21E6C1;
+    --sand:#FFF3E2;
+    --ink:#160E33;
+    --radius:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'General Sans',system-ui,sans-serif;
+    background:var(--dusk);
+    color:var(--sand);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Clash Display',sans-serif;letter-spacing:-.015em;line-height:.98}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1120px,92vw);margin-inline:auto}
+  section{position:relative;z-index:2}
+
+  /* grain overlay */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px clamp(16px,5vw,40px);
+    transition:background .35s,backdrop-filter .35s,padding .35s;
+  }
+  nav.scrolled{background:rgba(22,14,51,.72);backdrop-filter:blur(14px);padding:10px clamp(16px,5vw,40px)}
+  .brand{font-family:'Clash Display';font-weight:700;font-size:21px;letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+  .brand img{height:34px;width:34px;border-radius:8px;object-fit:cover}
+  .brand .txt span{color:var(--teal)}
+  .navlinks{display:flex;gap:26px;align-items:center;font-size:15px;font-weight:500}
+  .navlinks a{opacity:.85;transition:opacity .2s}
+  .navlinks a:hover{opacity:1}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(100deg,var(--pink),var(--tangerine));
+    color:#fff;font-weight:600;font-size:14px;
+    padding:11px 20px;border-radius:100px;border:none;cursor:pointer;
+    box-shadow:0 8px 24px rgba(255,61,129,.35);transition:transform .2s,box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,61,129,.5)}
+  @media(max-width:720px){.navlinks a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:120px 20px 60px}
+  .hero-bg{position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(120% 90% at 50% 120%, var(--tangerine) 0%, transparent 55%),
+      radial-gradient(90% 70% at 80% 10%, rgba(255,61,129,.6) 0%, transparent 50%),
+      linear-gradient(180deg,var(--dusk) 0%,var(--dusk2) 60%,#3a1f63 100%);
+  }
+  .hero-photo{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+  .hero-video{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s}
+  .hero-video.on{opacity:1}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,14,51,.35) 0%,rgba(22,14,51,.35) 45%,rgba(22,14,51,.72) 100%)}
+  .sun{position:absolute;bottom:-220px;left:50%;transform:translateX(-50%);width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,214,107,.55) 0%,rgba(255,159,69,.35) 40%,transparent 72%);filter:blur(10px);z-index:1;opacity:.7;pointer-events:none}
+  .hero .eyebrow{position:relative;z-index:2;font-weight:600;letter-spacing:.34em;text-transform:uppercase;font-size:13px;color:var(--teal);margin-bottom:22px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .hero h1{position:relative;z-index:2;font-weight:700;font-size:clamp(54px,13.5vw,176px);text-shadow:0 6px 44px rgba(0,0,0,.45)}
+  .hero h1 .o{color:var(--teal)}
+  .hero .sub{position:relative;z-index:2;margin-top:24px;font-size:clamp(16px,2.4vw,22px);font-weight:500;opacity:.97;text-shadow:0 2px 16px rgba(0,0,0,.55)}
+  .hero .sub b{color:var(--teal)}
+  .hero-cta{position:relative;z-index:2;margin-top:38px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn.ghost{background:rgba(22,14,51,.35);border:1.5px solid rgba(255,243,226,.45);box-shadow:none;color:var(--sand);backdrop-filter:blur(4px)}
+  .btn.ghost:hover{border-color:var(--sand);background:rgba(255,255,255,.1)}
+
+  /* countdown */
+  .countdown{position:relative;z-index:2;display:flex;gap:14px;margin-top:48px}
+  .cd-box{background:rgba(22,14,51,.4);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:14px 18px;min-width:78px}
+  .cd-num{font-family:'Clash Display';font-weight:700;font-size:clamp(26px,5vw,40px);line-height:1}
+  .cd-lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-top:6px}
+
+  /* floating shells */
+  .float{position:absolute;z-index:1;font-size:34px;opacity:.85;animation:bob 6s ease-in-out infinite;text-shadow:0 4px 18px rgba(0,0,0,.4)}
+  .float.s2{animation-delay:-2s}.float.s3{animation-delay:-4s}.float.s4{animation-delay:-1s}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-22px) rotate(8deg)}}
+
+  /* MARQUEE */
+  .marquee{background:var(--teal);color:var(--dusk);padding:14px 0;overflow:hidden;white-space:nowrap;font-family:'Clash Display';font-weight:700;font-size:18px;letter-spacing:.02em;border-top:3px solid var(--dusk);border-bottom:3px solid var(--dusk)}
+  .marquee div{display:inline-block;animation:scroll 22s linear infinite}
+  .marquee span{margin:0 26px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* SECTION SHELL */
+  .pad{padding:clamp(70px,11vw,130px) 0}
+  .tag{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--pink);margin-bottom:18px}
+  .pad h2{font-size:clamp(34px,6vw,68px);font-weight:700;max-width:14ch}
+  .lead{font-size:clamp(16px,2vw,19px);line-height:1.7;opacity:.82;max-width:54ch;margin-top:22px}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* INFO CARDS */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:54px}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr}}
+  .card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:30px}
+  .card .ico{font-size:30px;margin-bottom:16px}
+  .card h3{font-size:22px;font-weight:600;margin-bottom:8px}
+  .card p{opacity:.78;line-height:1.6;font-size:15px}
+
+  /* LINEUP */
+  .lineup{display:flex;flex-direction:column;gap:2px;margin-top:50px;border-top:1px solid rgba(255,255,255,.14)}
+  .slot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 6px;border-bottom:1px solid rgba(255,255,255,.14);transition:padding-left .25s,background .25s}
+  .slot:hover{padding-left:18px;background:rgba(255,255,255,.03)}
+  .slot .t{font-family:'Clash Display';font-weight:700;font-size:clamp(22px,4vw,38px)}
+  .slot .meta{text-align:right;opacity:.7;font-size:14px;line-height:1.4;flex-shrink:0}
+  .slot .badge{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(33,230,193,.4);border-radius:100px;padding:3px 10px;margin-top:6px}
+
+  /* GALLERY */
+  .polas{display:flex;flex-wrap:wrap;gap:6px 0;justify-content:center;margin-top:56px}
+  .pola{background:#fff;padding:12px 12px 46px;border-radius:4px;box-shadow:0 16px 36px rgba(0,0,0,.4);transform:rotate(var(--r,0deg));transition:transform .3s,box-shadow .3s;position:relative;margin:6px}
+  .pola:hover{transform:rotate(0) scale(1.05);z-index:5;box-shadow:0 24px 50px rgba(0,0,0,.55)}
+  .pola .img{width:210px;height:210px;border-radius:2px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:54px;overflow:hidden}
+  .pola .img img{width:100%;height:100%;object-fit:cover;display:block}
+  .pola .cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#3a2f5a;font-family:'General Sans';font-weight:500;font-size:14px;font-style:italic}
+  .pola.add .img{background:repeating-linear-gradient(45deg,#efe9f7,#efe9f7 12px,#e6def2 12px,#e6def2 24px);color:#9b8fc0}
+  @media(max-width:560px){.pola .img{width:150px;height:150px}}
+
+  /* INSTA CTA */
+  .insta{background:linear-gradient(120deg,#FF6B5E,#FF3D81 45%,#B5179E);border-radius:32px;padding:clamp(40px,7vw,72px);text-align:center;overflow:hidden;position:relative}
+  .insta h2{font-size:clamp(30px,5vw,56px);font-weight:700}
+  .insta p{opacity:.92;margin-top:16px;font-size:17px}
+  .insta .btn{background:#fff;color:var(--pink);margin-top:30px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+  /* FAQ */
+  .faq{margin-top:48px;max-width:760px}
+  details{border-bottom:1px solid rgba(255,255,255,.14);padding:22px 4px}
+  summary{cursor:pointer;list-style:none;font-family:'Clash Display';font-weight:600;font-size:clamp(17px,2.4vw,22px);display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--teal);font-size:26px;transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{opacity:.8;line-height:1.7;margin-top:14px;font-size:15px;max-width:60ch}
+
+  /* FOOTER */
+  footer{padding:80px 0 50px;text-align:center;border-top:1px solid rgba(255,255,255,.1);margin-top:60px}
+  .foot-logo{width:clamp(150px,32vw,210px);height:auto;display:block;margin:0 auto 26px;border-radius:20px}
+  footer .big{font-family:'Clash Display';font-weight:700;font-size:clamp(40px,9vw,110px);background:linear-gradient(100deg,var(--coral),var(--teal));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:.95}
+  footer .mini{opacity:.55;font-size:13px;margin-top:24px}
+
+  .map{margin-top:40px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.12);filter:grayscale(.2) contrast(1.05)}
+  .map iframe{display:block;width:100%;height:380px;border:0}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="brand"><img src="assets/logo.svg" alt="Schelpenfissa logo" /><span class="txt">SCHELPEN<span>FISSA</span></span></a>
+  <div class="navlinks">
+    <a href="#info">Info</a>
+    <a href="#lineup">Line-up</a>
+    <a href="#fotos">Foto's</a>
+    <a href="#insta" class="btn">Volg op Insta</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <img class="hero-photo" src="assets/hero.webp" alt="" />
+  <video class="hero-video" id="hero-video" src="assets/hero.mp4" poster="assets/hero.webp" autoplay muted loop playsinline></video>
+  <div class="hero-scrim"></div>
+  <div class="sun"></div>
+  <div class="float s1" style="top:18%;left:12%">🐚</div>
+  <div class="float s2" style="top:26%;right:14%">🌊</div>
+  <div class="float s3" style="bottom:24%;left:18%">☀️</div>
+  <div class="float s4" style="bottom:30%;right:20%">🐚</div>
+
+  <p class="eyebrow">Het strandfeest is terug</p>
+  <h1>SCHELPEN<span class="o">FISSA</span></h1>
+  <p class="sub">Strandfeest · <b>Muiderberg</b> · <b>15 augustus</b></p>
+
+  <div class="countdown" id="cd">
+    <div class="cd-box"><div class="cd-num" id="d">--</div><div class="cd-lbl">Dagen</div></div>
+    <div class="cd-box"><div class="cd-num" id="h">--</div><div class="cd-lbl">Uur</div></div>
+    <div class="cd-box"><div class="cd-num" id="m">--</div><div class="cd-lbl">Min</div></div>
+    <div class="cd-box"><div class="cd-num" id="s">--</div><div class="cd-lbl">Sec</div></div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#info" class="btn">Alle info ↓</a>
+    <a href="#insta" class="btn ghost">Volg @schelpenfissa</a>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div>
+    <span>🐚 ZON</span><span>🌊 ZEE</span><span>🔊 BEATS</span><span>🍹 STRAND</span><span>🐚 SCHELPENFISSA '26</span>
+    <span>🐚 ZON</span><span>🌊 ZEE</span><span>🔊 BEATS</span><span>🍹 STRAND</span><span>🐚 SCHELPENFISSA '26</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="pad" id="about">
+  <div class="wrap reveal">
+    <span class="tag">We zijn terug</span>
+    <h2>Eén dag. Eén strand. De fissa van het jaar.</h2>
+    <p class="lead">Vorig jaar even niet — dit jaar dubbel zo hard. Schelpenfissa keert terug naar het strand van Muiderberg voor een dag vol zon, zee, schelpen en de beste beats. Sleep je crew mee, voeten in het zand, en dansen tot de zon achter het IJmeer zakt.</p>
+  </div>
+</section>
+
+<!-- INFO CARDS -->
+<section class="pad" id="info" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag reveal">Praktisch</span>
+    <h2 class="reveal">Wat je moet weten</h2>
+    <div class="grid3">
+      <div class="card reveal">
+        <div class="ico">📍</div>
+        <h3>Locatie</h3>
+        <p>Strand van Muiderberg, aan het IJmeer. Scroll naar de kaart onderaan voor de exacte plek.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico">📅</div>
+        <h3>Wanneer</h3>
+        <p>Zaterdag 15 augustus 2026. Inloop vanaf de middag, doorgaan tot zonsondergang.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico">🎟️</div>
+        <h3>Toegang</h3>
+        <p>Details over entree volgen. Houd Insta in de gaten — daar dropt eerst het laatste nieuws.</p>
+      </div>
+    </div>
+    <div class="map reveal">
+      <iframe loading="lazy" title="Muiderberg strand"
+        src="https://www.google.com/maps?q=Strand+Muiderberg&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- LINEUP -->
+<section class="pad" id="lineup" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag reveal">Line-up</span>
+    <h2 class="reveal">Wie draait er</h2>
+    <p class="lead reveal">De volledige line-up wordt stukje bij beetje onthuld. Dit staat al vast 👇</p>
+    <div class="lineup">
+      <div class="slot reveal"><div class="t">Sunset Set</div><div class="meta">Hoofdact<br><span class="badge">Bevestigd</span></div></div>
+      <div class="slot reveal"><div class="t">Beach Sessions</div><div class="meta">Middag<br><span class="badge">Bevestigd</span></div></div>
+      <div class="slot reveal"><div class="t">Special Guest</div><div class="meta">t.b.a.<br><span class="badge">Binnenkort</span></div></div>
+      <div class="slot reveal"><div class="t">+ meer</div><div class="meta">t.b.a.<br><span class="badge">Binnenkort</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="pad" id="fotos" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag reveal">Vorige edities</span>
+    <h2 class="reveal">Het zat in de schelpen 🐚</h2>
+    <p class="lead reveal">Beelden van het strand. Heb je eigen polaroids? Die scannen we in en zetten we hiertussen.</p>
+    <div class="polas" id="gallery">
+      <div class="pola reveal" style="--r:-5deg"><div class="img"><img src="assets/g4.webp" alt="Zonsondergang over het water" loading="lazy" /></div><div class="cap">zonsondergang</div></div>
+      <div class="pola reveal" style="--r:3deg"><div class="img"><img src="assets/g1.webp" alt="Voeten en schelpen in het zand" loading="lazy" /></div><div class="cap">voeten in 't zand</div></div>
+      <div class="pola reveal" style="--r:-2deg"><div class="img"><img src="assets/g2.webp" alt="DJ draait op het strand" loading="lazy" /></div><div class="cap">dansen tot laat</div></div>
+      <div class="pola reveal" style="--r:6deg"><div class="img"><img src="assets/g3.webp" alt="Vrienden proosten bij zonsondergang" loading="lazy" /></div><div class="cap">strandvibes</div></div>
+      <div class="pola add reveal" style="--r:-4deg"><div class="img">＋</div><div class="cap">jouw foto hier</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTA -->
+<section class="pad" id="insta" style="padding-top:0">
+  <div class="wrap reveal">
+    <div class="insta">
+      <div class="float" style="top:16px;left:24px;font-size:40px">🐚</div>
+      <div class="float s3" style="bottom:16px;right:28px;font-size:40px">📸</div>
+      <h2>Mis niks. Volg ons.</h2>
+      <p>Line-up reveals, ticket-drops en throwbacks verschijnen eerst op Instagram.</p>
+      <a href="https://instagram.com/schelpenfissa" target="_blank" rel="noopener" class="btn">📸 @schelpenfissa</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="pad" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag reveal">Goed om te weten</span>
+    <h2 class="reveal">Veelgestelde vragen</h2>
+    <div class="faq">
+      <details class="reveal"><summary>Waar is het precies?</summary><p>Op het strand van Muiderberg aan het IJmeer. De exacte verzamelplek delen we dichter op de dag via Instagram en de kaart hierboven.</p></details>
+      <details class="reveal"><summary>Wat kost het?</summary><p>Daar komen we snel op terug. Volg @schelpenfissa zodat je het als eerste weet.</p></details>
+      <details class="reveal"><summary>Wat neem ik mee?</summary><p>Goede vibes, zonnebrand, een handdoek en je crew. De rest regelen wij op het strand.</p></details>
+      <details class="reveal"><summary>Gaat het door bij slecht weer?</summary><p>Schelpenfissa is een zomerfeest — bij twijfel over het weer lees je de laatste update op Instagram.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img class="foot-logo" src="assets/logo.svg" alt="Schelpenfissa" />
+    <div class="big">ZIE JE<br>OP HET STRAND</div>
+    <p class="mini">SCHELPENFISSA · Muiderberg · 15 augustus 2026 · gemaakt met 🐚 &amp; zonneschijn</p>
+  </div>
+</footer>
+
+<script>
+  // nav scroll state
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+  // countdown to 15 Aug 2026, 14:00
+  const target=new Date('2026-08-15T14:00:00+02:00').getTime();
+  function tick(){
+    const now=Date.now(), gap=Math.max(0,target-now);
+    const d=Math.floor(gap/864e5), h=Math.floor(gap%864e5/36e5), m=Math.floor(gap%36e5/6e4), s=Math.floor(gap%6e4/1e3);
+    const set=(id,v)=>document.getElementById(id).textContent=String(v).padStart(2,'0');
+    set('d',d);set('h',h);set('m',m);set('s',s);
+  }
+  tick();setInterval(tick,1000);
+
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // hero video fades in once it has data; if the file is missing the photo stays
+  const hv=document.getElementById('hero-video');
+  if(hv){
+    hv.addEventListener('loadeddata',()=>hv.classList.add('on'));
+    hv.addEventListener('error',()=>hv.style.display='none');
+  }
+</script>
+</body>
+</html>
