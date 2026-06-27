@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SCHELPENFISSA · Strandfeest Muiderberg · 15 augustus</title>
-<meta name="description" content="Het jaarlijkse strandfeest is terug. Schelpenfissa — Muiderberg strand, 15 augustus. Zon, zee, schelpen en de beste beats." />
+<title>SCHELPENFISSA · Strandfeest Muiderberg · 8 augustus</title>
+<meta name="description" content="Het jaarlijkse strandfeest is terug. Schelpenfissa — Muiderberg strand, 8 augustus. Zon, zee, schelpen en de beste beats." />
 <meta property="og:title" content="SCHELPENFISSA — We zijn terug" />
-<meta property="og:description" content="Strandfeest · Muiderberg · 15 augustus. Zet 'm in je agenda." />
+<meta property="og:description" content="Strandfeest · Muiderberg · 8 augustus. Zet 'm in je agenda." />
 <meta property="og:image" content="https://schelpenfissa.com/assets/hero.png" />
 <meta property="og:url" content="https://schelpenfissa.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="nl_NL" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="SCHELPENFISSA — We zijn terug" />
-<meta name="twitter:description" content="Strandfeest · Muiderberg · 15 augustus." />
+<meta name="twitter:description" content="Strandfeest · Muiderberg · 8 augustus." />
 <meta name="twitter:image" content="https://schelpenfissa.com/assets/hero.png" />
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
@@ -221,7 +221,7 @@
 
   <p class="eyebrow">Het strandfeest is terug</p>
   <h1>SCHELPEN<span class="o">FISSA</span></h1>
-  <p class="sub">Strandfeest · <b>Muiderberg</b> · <b>15 augustus</b></p>
+  <p class="sub">Strandfeest · <b>Muiderberg</b> · <b>8 augustus</b></p>
 
   <div class="countdown" id="cd">
     <div class="cd-box"><div class="cd-num" id="d">--</div><div class="cd-lbl">Dagen</div></div>
@@ -267,7 +267,7 @@
       <div class="card reveal">
         <div class="ico">📅</div>
         <h3>Wanneer</h3>
-        <p>Zaterdag 15 augustus 2026. Inloop vanaf de middag, doorgaan tot zonsondergang.</p>
+        <p>Zaterdag 8 augustus 2026. Inloop vanaf de middag, doorgaan tot zonsondergang.</p>
       </div>
       <div class="card reveal">
         <div class="ico">🍖</div>
@@ -345,7 +345,7 @@
   <div class="wrap">
     <img class="foot-logo" src="assets/icon.svg" alt="Schelpenfissa" />
     <div class="big">ZIE JE<br>OP HET STRAND</div>
-    <p class="mini">SCHELPENFISSA · Muiderberg · 15 augustus 2026 · gemaakt met 🐚 &amp; zonneschijn</p>
+    <p class="mini">SCHELPENFISSA · Muiderberg · 8 augustus 2026 · gemaakt met 🐚 &amp; zonneschijn</p>
     <div class="presented">
       <span>Een productie van</span>
       <a href="https://instagram.com/projectfidelio" target="_blank" rel="noopener" aria-label="Project Fidelio">
@@ -360,8 +360,8 @@
   const nav=document.getElementById('nav');
   addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
 
-  // countdown to 15 Aug 2026, 14:00
-  const target=new Date('2026-08-15T14:00:00+02:00').getTime();
+  // countdown to 8 Aug 2026, 14:00
+  const target=new Date('2026-08-08T14:00:00+02:00').getTime();
   function tick(){
     const now=Date.now(), gap=Math.max(0,target-now);
     const d=Math.floor(gap/864e5), h=Math.floor(gap%864e5/36e5), m=Math.floor(gap%36e5/6e4), s=Math.floor(gap%6e4/1e3);
@@ -375,7 +375,7 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
   // marquee: vul de balk altijd helemaal (ook ultrawide), naadloos, constante snelheid
-  const mItems=['🐚 ZON','🌊 ZEE','🔊 BEATS','🍹 STRAND','☀️ SUNSET','💃 DANSEN','📅 15 AUGUSTUS','📍 MUIDERBERG','🐚 SCHELPENFISSA \'26'];
+  const mItems=['🐚 ZON','🌊 ZEE','🔊 BEATS','🍹 STRAND','☀️ SUNSET','💃 DANSEN','📅 8 AUGUSTUS','📍 MUIDERBERG','🐚 SCHELPENFISSA \'26'];
   const mTrack=document.getElementById('marquee');
   const mOne=mItems.map(t=>'<span>'+t+'</span>').join('');
   function buildMarquee(){
