@@ -31,7 +31,7 @@
     --radius:22px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:hidden}
   body{
     font-family:'General Sans',system-ui,sans-serif;
     background:var(--dusk);
@@ -393,7 +393,7 @@
   <button class="nxt" id="p-nxt" aria-label="Volgende mix" title="Volgende mix">⏭</button>
 </div>
 <iframe id="sc" title="SoundCloud speler" allow="autoplay" frameborder="0"
-  style="position:fixed;left:-9999px;top:-9999px;width:320px;height:166px;border:0"
+  style="position:fixed;left:8px;bottom:8px;width:180px;height:100px;opacity:0;pointer-events:none;border:0"
   src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fdubsteppinn-1%2Flate-night-signals&color=%2321E6C1&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_teaser=false&visual=false"></iframe>
 <script src="https://w.soundcloud.com/player/api.js" onerror="window.__scBlocked=1"></script>
 
