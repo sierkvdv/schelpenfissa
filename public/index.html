@@ -386,7 +386,7 @@
   <button class="nxt" id="p-nxt" aria-label="Volgende mix" title="Volgende mix">⏭</button>
 </div>
 <iframe id="sc" title="SoundCloud speler" allow="autoplay" frameborder="0"
-  style="position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none"
+  style="position:fixed;left:-9999px;top:-9999px;width:320px;height:166px;border:0"
   src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fdubsteppinn-1%2Flate-night-signals&color=%2321E6C1&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_teaser=false&visual=false"></iframe>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 
@@ -455,29 +455,38 @@
     const TITLES=['Late Night Signals','Low Pressure Signals','Signal Drift: Tokyo to Dub','Subsurface Motion','Fracture Control'];
     const PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
     const PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
-    const el=document.getElementById('player'), pp=document.getElementById('pp'),
-          ttl=document.getElementById('p-ttl'), lbl=document.getElementById('p-lbl'),
-          nxt=document.getElementById('p-nxt'), ifr=document.getElementById('sc');
-    if(!el||!ifr||!window.SC){return;}
-    const widget=SC.Widget(ifr); let i=0, playing=false, ready=false;
-    pp.innerHTML=PLAY;
-    function ui(on){ playing=on; el.classList.toggle('paused',!on); if(on){el.classList.remove('invite');lbl.textContent='Now playing';} pp.innerHTML=on?PAUSE:PLAY; pp.setAttribute('aria-label',on?'Pauzeren':'Afspelen'); }
-    function load(n,auto){ i=((n%TRACKS.length)+TRACKS.length)%TRACKS.length; ttl.textContent=TITLES[i]; widget.load(TRACKS[i],{auto_play:!!auto,callback:function(){ if(auto){ try{widget.play();}catch(e){} } }}); }
-    widget.bind(SC.Widget.Events.READY,function(){
-      ready=true;
-      try{widget.setVolume(75);}catch(e){}
-      ttl.textContent=TITLES[0];
-      widget.bind(SC.Widget.Events.PLAY,function(){ui(true);});
-      widget.bind(SC.Widget.Events.PAUSE,function(){ui(false);});
-      widget.bind(SC.Widget.Events.FINISH,function(){ load(i+1,true); });
-      try{widget.play();}catch(e){}
-    });
-    function firstGesture(){ if(ready&&!playing){ try{widget.play();}catch(e){} } window.removeEventListener('pointerdown',firstGesture); window.removeEventListener('keydown',firstGesture); window.removeEventListener('touchstart',firstGesture); }
-    window.addEventListener('pointerdown',firstGesture);
-    window.addEventListener('touchstart',firstGesture);
-    window.addEventListener('keydown',firstGesture);
-    pp.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; playing?widget.pause():widget.play(); });
-    nxt.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; load(i+1,true); });
+    function $(id){return document.getElementById(id);}
+    function fallback(){ // SoundCloud geblokkeerd (adblock/Brave-shield) -> link naar profiel
+      const el=$('player'); if(!el) return;
+      el.classList.remove('invite','paused'); $('p-lbl').textContent='Beluister op'; $('p-ttl').textContent='SoundCloud →';
+      $('pp').innerHTML=PLAY; el.style.cursor='pointer';
+      el.addEventListener('click',function(){ window.open('https://soundcloud.com/dubsteppinn-1','_blank','noopener'); });
+    }
+    function init(){
+      const el=$('player'), pp=$('pp'), ttl=$('p-ttl'), lbl=$('p-lbl'), nxt=$('p-nxt'), ifr=$('sc');
+      if(!el||!ifr){return;}
+      const widget=SC.Widget(ifr); let i=0, playing=false, ready=false;
+      pp.innerHTML=PLAY;
+      function ui(on){ playing=on; el.classList.toggle('paused',!on); if(on){el.classList.remove('invite');lbl.textContent='Now playing';} pp.innerHTML=on?PAUSE:PLAY; pp.setAttribute('aria-label',on?'Pauzeren':'Afspelen'); }
+      function load(n,auto){ i=((n%TRACKS.length)+TRACKS.length)%TRACKS.length; ttl.textContent=TITLES[i]; widget.load(TRACKS[i],{auto_play:!!auto,callback:function(){ if(auto){ try{widget.play();}catch(e){} } }}); }
+      widget.bind(SC.Widget.Events.READY,function(){
+        ready=true;
+        try{widget.setVolume(75);}catch(e){}
+        ttl.textContent=TITLES[0];
+        widget.bind(SC.Widget.Events.PLAY,function(){ui(true);});
+        widget.bind(SC.Widget.Events.PAUSE,function(){ui(false);});
+        widget.bind(SC.Widget.Events.FINISH,function(){ load(i+1,true); });
+        try{widget.play();}catch(e){}
+      });
+      function firstGesture(){ if(ready&&!playing){ try{widget.play();}catch(e){} } window.removeEventListener('pointerdown',firstGesture); window.removeEventListener('keydown',firstGesture); window.removeEventListener('touchstart',firstGesture); }
+      window.addEventListener('pointerdown',firstGesture);
+      window.addEventListener('touchstart',firstGesture);
+      window.addEventListener('keydown',firstGesture);
+      pp.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; playing?widget.pause():widget.play(); });
+      nxt.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; load(i+1,true); });
+    }
+    function waitSC(n){ if(window.SC&&window.SC.Widget){init();} else if(n>0){setTimeout(function(){waitSC(n-1);},200);} else {fallback();} }
+    waitSC(30);
   })();
 </script>
 </body>
