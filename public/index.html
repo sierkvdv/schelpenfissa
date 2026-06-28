@@ -58,10 +58,10 @@
     transition:background .35s,backdrop-filter .35s,padding .35s;
   }
   nav.scrolled{background:rgba(22,14,51,.72);backdrop-filter:blur(14px);padding:10px clamp(16px,5vw,40px)}
-  .brand{font-family:'Clash Display';font-weight:700;font-size:21px;letter-spacing:.01em;display:flex;align-items:center;gap:10px}
+  .brand{font-family:'Clash Display';font-weight:700;font-size:21px;letter-spacing:.01em;display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden}
   .brand img{height:30px;width:auto;display:block}
   .brand .txt span{color:var(--teal)}
-  .navlinks{display:flex;gap:26px;align-items:center;font-size:15px;font-weight:500}
+  .navlinks{display:flex;gap:26px;align-items:center;font-size:15px;font-weight:500;flex-shrink:0}
   .navlinks a{opacity:.85;transition:opacity .2s}
   .navlinks a:hover{opacity:1}
   .btn{
@@ -107,6 +107,10 @@
     .hero h1{font-size:clamp(48px,15.5vw,88px)}
     .hero h1 .o{display:block}
     .float{display:none}
+    nav{padding:11px 14px}
+    .brand{font-size:16px;gap:7px}
+    .brand img{height:25px;width:25px}
+    .navlinks .btn{padding:9px 14px;font-size:13px}
   }
 
   /* countdown */
