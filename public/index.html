@@ -191,6 +191,26 @@
   .map iframe{display:block;width:100%;height:380px;border:0}
   .map-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-weight:600;font-size:15px;color:var(--teal);border:1.5px solid rgba(33,230,193,.4);border-radius:100px;padding:9px 18px;transition:background .2s,border-color .2s}
   .map-link:hover{background:rgba(33,230,193,.1);border-color:var(--teal)}
+
+  /* MUZIEKSPELER */
+  .player{position:fixed;left:20px;bottom:20px;z-index:1500;display:flex;align-items:center;gap:11px;padding:9px 16px 9px 9px;border-radius:100px;background:rgba(22,14,51,.82);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 32px rgba(0,0,0,.45);max-width:min(80vw,330px);transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .35s}
+  .player button{background:none;border:none;color:var(--sand);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+  .player .pp{width:42px;height:42px;border-radius:50%;background:linear-gradient(120deg,var(--pink),var(--tangerine));color:#fff;flex-shrink:0;box-shadow:0 6px 16px rgba(255,61,129,.4);transition:transform .15s}
+  .player .pp:hover{transform:scale(1.07)}
+  .player .pp svg{width:17px;height:17px;display:block}
+  .player .eq{display:flex;align-items:flex-end;gap:2.5px;height:20px;flex-shrink:0}
+  .player .eq i{width:3px;background:var(--teal);border-radius:2px;height:30%;animation:eqb .9s ease-in-out infinite}
+  .player .eq i:nth-child(2){animation-delay:.25s}.player .eq i:nth-child(3){animation-delay:.45s}.player .eq i:nth-child(4){animation-delay:.12s}
+  .player.paused .eq i{animation-play-state:paused;height:32%}
+  @keyframes eqb{0%,100%{height:22%}50%{height:100%}}
+  .player .meta{min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.2;text-align:left}
+  .player .lbl{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);white-space:nowrap}
+  .player .ttl{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+  .player .nxt{font-size:16px;opacity:.65;flex-shrink:0;width:22px}
+  .player .nxt:hover{opacity:1}
+  .player.invite .pp{animation:ppulse 1.5s ease-in-out infinite}
+  @keyframes ppulse{0%,100%{box-shadow:0 6px 16px rgba(255,61,129,.45)}50%{box-shadow:0 4px 30px rgba(255,61,129,.9)}}
+  @media(max-width:600px){.player{left:12px;bottom:12px;padding:8px 14px 8px 8px}.player .ttl{max-width:118px}}
 </style>
 </head>
 <body>
@@ -355,6 +375,21 @@
   </div>
 </footer>
 
+<!-- MUZIEKSPELER (Project Fidelio mixes) -->
+<div class="player paused invite" id="player" aria-label="Project Fidelio mixes">
+  <button class="pp" id="pp" aria-label="Afspelen"></button>
+  <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="meta">
+    <span class="lbl" id="p-lbl">Tap voor de mix</span>
+    <span class="ttl" id="p-ttl">Project Fidelio</span>
+  </div>
+  <button class="nxt" id="p-nxt" aria-label="Volgende mix" title="Volgende mix">⏭</button>
+</div>
+<iframe id="sc" title="SoundCloud speler" allow="autoplay" frameborder="0"
+  style="position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none"
+  src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fdubsteppinn-1%2Flate-night-signals&color=%2321E6C1&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_teaser=false&visual=false"></iframe>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+
 <script>
   // nav scroll state
   const nav=document.getElementById('nav');
@@ -405,6 +440,45 @@
       hv.play().catch(()=>{});
     }
   }
+</script>
+
+<script>
+  // Project Fidelio mixes — SoundCloud widget, speelt de 5 mixes op volgorde (en herhaalt)
+  (function(){
+    const TRACKS=[
+      'https://soundcloud.com/dubsteppinn-1/late-night-signals',
+      'https://soundcloud.com/dubsteppinn-1/low-pressure-signals',
+      'https://soundcloud.com/dubsteppinn-1/signal-drift-tokyo-to-dub',
+      'https://soundcloud.com/dubsteppinn-1/subsurface-motion',
+      'https://soundcloud.com/dubsteppinn-1/fracture-control'
+    ];
+    const TITLES=['Late Night Signals','Low Pressure Signals','Signal Drift: Tokyo to Dub','Subsurface Motion','Fracture Control'];
+    const PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    const PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+    const el=document.getElementById('player'), pp=document.getElementById('pp'),
+          ttl=document.getElementById('p-ttl'), lbl=document.getElementById('p-lbl'),
+          nxt=document.getElementById('p-nxt'), ifr=document.getElementById('sc');
+    if(!el||!ifr||!window.SC){return;}
+    const widget=SC.Widget(ifr); let i=0, playing=false, ready=false;
+    pp.innerHTML=PLAY;
+    function ui(on){ playing=on; el.classList.toggle('paused',!on); if(on){el.classList.remove('invite');lbl.textContent='Now playing';} pp.innerHTML=on?PAUSE:PLAY; pp.setAttribute('aria-label',on?'Pauzeren':'Afspelen'); }
+    function load(n,auto){ i=((n%TRACKS.length)+TRACKS.length)%TRACKS.length; ttl.textContent=TITLES[i]; widget.load(TRACKS[i],{auto_play:!!auto,callback:function(){ if(auto){ try{widget.play();}catch(e){} } }}); }
+    widget.bind(SC.Widget.Events.READY,function(){
+      ready=true;
+      try{widget.setVolume(75);}catch(e){}
+      ttl.textContent=TITLES[0];
+      widget.bind(SC.Widget.Events.PLAY,function(){ui(true);});
+      widget.bind(SC.Widget.Events.PAUSE,function(){ui(false);});
+      widget.bind(SC.Widget.Events.FINISH,function(){ load(i+1,true); });
+      try{widget.play();}catch(e){}
+    });
+    function firstGesture(){ if(ready&&!playing){ try{widget.play();}catch(e){} } window.removeEventListener('pointerdown',firstGesture); window.removeEventListener('keydown',firstGesture); window.removeEventListener('touchstart',firstGesture); }
+    window.addEventListener('pointerdown',firstGesture);
+    window.addEventListener('touchstart',firstGesture);
+    window.addEventListener('keydown',firstGesture);
+    pp.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; playing?widget.pause():widget.play(); });
+    nxt.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; load(i+1,true); });
+  })();
 </script>
 </body>
 </html>
