@@ -75,7 +75,7 @@
   @media(max-width:720px){.navlinks a:not(.btn){display:none}}
 
   /* HERO */
-  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:96px 20px 44px}
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:96px 20px 44px}
   .hero-bg{position:absolute;inset:0;z-index:0;
     background:
       radial-gradient(120% 90% at 50% 120%, var(--tangerine) 0%, transparent 55%),
@@ -499,27 +499,6 @@
     function waitSC(n){ if(window.SC&&window.SC.Widget){init();} else if(window.__scBlocked){fallback();} else if(n>0){setTimeout(function(){waitSC(n-1);},150);} else {fallback();} }
     waitSC(40);
   })();
-</script>
-
-<script>
-  // debug: open schelpenfissa.com/?debug -> markeert overlopende elementen + toont lijst onderaan
-  if(/[?&#]debug/.test(location.href)){
-    (function(){
-      var vw=document.documentElement.clientWidth, bad=[];
-      document.querySelectorAll('body *').forEach(function(el){
-        var r=el.getBoundingClientRect();
-        if(r.width>0 && (r.right>vw+1 || r.left<-1)){
-          el.style.outline='2px solid #ff2d55';
-          var cls=(typeof el.className==='string'?el.className:'').trim().replace(/\s+/g,'.');
-          bad.push(el.tagName.toLowerCase()+(cls?'.'+cls:'')+' ['+Math.round(r.left)+'→'+Math.round(r.right)+']');
-        }
-      });
-      var b=document.createElement('div');
-      b.style.cssText='position:fixed;left:0;bottom:0;z-index:99999;background:#000;color:#0f0;font:11px/1.45 monospace;padding:8px;max-height:45vh;overflow:auto;width:100%;box-sizing:border-box';
-      b.textContent='viewport='+vw+'px | overloop: '+(bad.slice(0,15).join('  ||  ')||'geen gevonden');
-      document.body.appendChild(b);
-    })();
-  }
 </script>
 </body>
 </html>
