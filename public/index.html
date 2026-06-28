@@ -500,5 +500,26 @@
     waitSC(40);
   })();
 </script>
+
+<script>
+  // debug: open schelpenfissa.com/?debug -> markeert overlopende elementen + toont lijst onderaan
+  if(/[?&#]debug/.test(location.href)){
+    (function(){
+      var vw=document.documentElement.clientWidth, bad=[];
+      document.querySelectorAll('body *').forEach(function(el){
+        var r=el.getBoundingClientRect();
+        if(r.width>0 && (r.right>vw+1 || r.left<-1)){
+          el.style.outline='2px solid #ff2d55';
+          var cls=(typeof el.className==='string'?el.className:'').trim().replace(/\s+/g,'.');
+          bad.push(el.tagName.toLowerCase()+(cls?'.'+cls:'')+' ['+Math.round(r.left)+'→'+Math.round(r.right)+']');
+        }
+      });
+      var b=document.createElement('div');
+      b.style.cssText='position:fixed;left:0;bottom:0;z-index:99999;background:#000;color:#0f0;font:11px/1.45 monospace;padding:8px;max-height:45vh;overflow:auto;width:100%;box-sizing:border-box';
+      b.textContent='viewport='+vw+'px | overloop: '+(bad.slice(0,15).join('  ||  ')||'geen gevonden');
+      document.body.appendChild(b);
+    })();
+  }
+</script>
 </body>
 </html>
