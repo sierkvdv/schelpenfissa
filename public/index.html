@@ -202,8 +202,10 @@
   .map-link:hover{background:rgba(33,230,193,.1);border-color:var(--teal)}
 
   /* MUZIEKSPELER */
-  .player{position:fixed;left:20px;bottom:20px;z-index:1500;display:flex;align-items:center;gap:11px;padding:9px 16px 9px 9px;border-radius:100px;background:rgba(22,14,51,.82);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 32px rgba(0,0,0,.45);max-width:min(80vw,330px);transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .35s}
-  .player button{background:none;border:none;color:var(--sand);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+  .player{position:fixed;left:20px;bottom:20px;z-index:1500;width:auto;border-radius:22px;background:rgba(18,11,40,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px rgba(0,0,0,.5);overflow:hidden;transition:width .3s}
+  .player.open{width:min(86vw,330px)}
+  .player button{background:none;border:none;color:var(--sand);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font:inherit}
+  .p-row{display:flex;align-items:center;gap:11px;padding:9px 14px 9px 9px}
   .player .pp{width:42px;height:42px;border-radius:50%;background:linear-gradient(120deg,var(--pink),var(--tangerine));color:#fff;flex-shrink:0;box-shadow:0 6px 16px rgba(255,61,129,.4);transition:transform .15s}
   .player .pp:hover{transform:scale(1.07)}
   .player .pp svg{width:17px;height:17px;display:block}
@@ -212,14 +214,33 @@
   .player .eq i:nth-child(2){animation-delay:.25s}.player .eq i:nth-child(3){animation-delay:.45s}.player .eq i:nth-child(4){animation-delay:.12s}
   .player.paused .eq i{animation-play-state:paused;height:32%}
   @keyframes eqb{0%,100%{height:22%}50%{height:100%}}
-  .player .meta{min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.2;text-align:left}
+  .p-meta{min-width:0;flex:1;display:flex;flex-direction:column;gap:1px;line-height:1.2;text-align:left;cursor:pointer}
   .player .lbl{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);white-space:nowrap}
-  .player .ttl{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
-  .player .nxt{font-size:16px;opacity:.65;flex-shrink:0;width:22px}
+  .player .ttl{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+  .player .nxt{font-size:16px;opacity:.7;flex-shrink:0;width:24px}
   .player .nxt:hover{opacity:1}
   .player.invite .pp{animation:ppulse 1.5s ease-in-out infinite}
   @keyframes ppulse{0%,100%{box-shadow:0 6px 16px rgba(255,61,129,.45)}50%{box-shadow:0 4px 30px rgba(255,61,129,.9)}}
-  @media(max-width:600px){.player{left:12px;bottom:12px;padding:8px 14px 8px 8px}.player .ttl{max-width:118px}}
+  .p-panel{max-height:0;opacity:0;overflow:hidden;transition:max-height .32s cubic-bezier(.2,.7,.2,1),opacity .25s;padding:0 14px}
+  .player.open .p-panel{max-height:360px;opacity:1;padding:14px 14px 2px}
+  .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .p-head-t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:600}
+  .p-close{font-size:14px;opacity:.6;width:22px;height:22px}
+  .p-close:hover{opacity:1}
+  .p-now-ttl{display:block;font-size:13px;font-weight:600;color:var(--sand);margin-bottom:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p-seek{height:7px;border-radius:7px;background:rgba(255,255,255,.14);cursor:pointer;position:relative;touch-action:none}
+  .p-seek-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--teal),var(--coral));border-radius:7px}
+  .p-times{display:flex;justify-content:space-between;font-size:10px;opacity:.6;margin-top:5px;font-variant-numeric:tabular-nums}
+  .p-list{margin-top:12px;max-height:182px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+  .p-trk{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer;transition:background .15s}
+  .p-trk:hover{background:rgba(255,255,255,.06)}
+  .p-trk.playing{background:rgba(33,230,193,.12)}
+  .p-trk .n{font-size:11px;opacity:.5;width:16px;flex-shrink:0;text-align:right}
+  .p-trk .t{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p-trk.playing .t{color:var(--teal);font-weight:600}
+  .p-sc{display:block;text-align:center;font-size:12px;font-weight:600;color:var(--teal);padding:11px;margin-top:4px;border-top:1px solid rgba(255,255,255,.08)}
+  .p-sc:hover{color:var(--sand)}
+  @media(max-width:600px){.player{left:12px;bottom:12px}.player.open{width:min(90vw,320px)}.player .ttl{max-width:130px}}
 </style>
 </head>
 <body>
@@ -388,13 +409,26 @@
 
 <!-- MUZIEKSPELER (Project Fidelio mixes) -->
 <div class="player paused invite" id="player" aria-label="Project Fidelio mixes">
-  <button class="pp" id="pp" aria-label="Afspelen"></button>
-  <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <div class="meta">
-    <span class="lbl" id="p-lbl">Tap voor de mix</span>
-    <span class="ttl" id="p-ttl">Project Fidelio</span>
+  <div class="p-panel" id="p-panel">
+    <div class="p-head">
+      <span class="p-head-t">Project Fidelio · mixes</span>
+      <button class="p-close" id="p-close" aria-label="Sluiten">✕</button>
+    </div>
+    <span class="p-now-ttl" id="p-now-ttl">—</span>
+    <div class="p-seek" id="p-seek"><div class="p-seek-fill" id="p-seek-fill"></div></div>
+    <div class="p-times"><span id="p-cur">0:00</span><span id="p-dur">0:00</span></div>
+    <div class="p-list" id="p-list"></div>
+    <a class="p-sc" id="p-sc" href="https://soundcloud.com/dubsteppinn-1" target="_blank" rel="noopener">Open op SoundCloud ↗</a>
   </div>
-  <button class="nxt" id="p-nxt" aria-label="Volgende mix" title="Volgende mix">⏭</button>
+  <div class="p-row">
+    <button class="pp" id="pp" aria-label="Afspelen"></button>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <button class="p-meta" id="p-toggle" aria-label="Open/sluit speler">
+      <span class="lbl" id="p-lbl">Tap voor de mix</span>
+      <span class="ttl" id="p-ttl">Project Fidelio</span>
+    </button>
+    <button class="nxt" id="p-nxt" aria-label="Volgende mix" title="Volgende mix">⏭</button>
+  </div>
 </div>
 <iframe id="sc" title="SoundCloud speler" allow="autoplay" frameborder="0"
   style="position:fixed;left:8px;bottom:8px;width:180px;height:100px;opacity:0;pointer-events:none;border:0"
@@ -474,27 +508,54 @@
       el.addEventListener('click',function(){ window.open('https://soundcloud.com/dubsteppinn-1','_blank','noopener'); });
     }
     function init(){
-      const el=$('player'), pp=$('pp'), ttl=$('p-ttl'), lbl=$('p-lbl'), nxt=$('p-nxt'), ifr=$('sc');
+      function fmt(ms){ ms=ms||0; var s=Math.floor(ms/1000), m=Math.floor(s/60); s=s%60; return m+':'+(s<10?'0':'')+s; }
+      var el=$('player'), pp=$('pp'), ttl=$('p-ttl'), lbl=$('p-lbl'), ifr=$('sc');
+      var nowTtl=$('p-now-ttl'), seek=$('p-seek'), fill=$('p-seek-fill'), curT=$('p-cur'), durT=$('p-dur'), list=$('p-list');
       if(!el||!ifr){return;}
-      const widget=SC.Widget(ifr); let i=0, playing=false, ready=false;
+      var widget=SC.Widget(ifr), i=0, playing=false, ready=false, duration=0, seeking=false, dragging=false, lastSave=0, lastPos=0;
+      var KEY='sf_player', len=TRACKS.length;
       pp.innerHTML=PLAY;
+      TRACKS.forEach(function(u,n){
+        var row=document.createElement('div'); row.className='p-trk';
+        row.innerHTML='<span class="n">'+(n+1)+'</span><span class="t"></span>';
+        row.querySelector('.t').textContent=TITLES[n];
+        row.addEventListener('click',function(){ load(n,true); });
+        list.appendChild(row);
+      });
+      function mark(){ for(var n=0;n<list.children.length;n++){ list.children[n].classList.toggle('playing',n===i); } }
+      function titles(){ ttl.textContent=TITLES[i]; nowTtl.textContent=TITLES[i]; mark(); }
       function ui(on){ playing=on; el.classList.toggle('paused',!on); if(on){el.classList.remove('invite');lbl.textContent='Now playing';} pp.innerHTML=on?PAUSE:PLAY; pp.setAttribute('aria-label',on?'Pauzeren':'Afspelen'); }
-      function load(n,auto){ i=((n%TRACKS.length)+TRACKS.length)%TRACKS.length; ttl.textContent=TITLES[i]; widget.load(TRACKS[i],{auto_play:!!auto,callback:function(){ if(auto){ try{widget.play();}catch(e){} } }}); }
+      function save(){ try{ localStorage.setItem(KEY,JSON.stringify({i:i,pos:lastPos})); }catch(e){} }
+      function load(n,auto){ i=((n%len)+len)%len; titles(); duration=0; lastPos=0; fill.style.width='0'; curT.textContent='0:00'; durT.textContent='0:00'; save();
+        widget.load(TRACKS[i],{auto_play:!!auto,callback:function(){ try{widget.getDuration(function(d){ duration=d; durT.textContent=fmt(d); });}catch(e){} if(auto){ try{widget.play();}catch(e){} } }}); }
       widget.bind(SC.Widget.Events.READY,function(){
-        ready=true;
-        try{widget.setVolume(75);}catch(e){}
-        ttl.textContent=TITLES[0];
+        ready=true; try{widget.setVolume(75);}catch(e){}
+        var saved=null; try{ saved=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){}
+        if(saved && ((((saved.i%len)+len)%len)>0 || saved.pos>2000)){
+          i=((saved.i%len)+len)%len; titles();
+          widget.load(TRACKS[i],{auto_play:false,callback:function(){
+            try{widget.getDuration(function(d){ duration=d; durT.textContent=fmt(d);
+              if(saved.pos>1000){ try{widget.seekTo(saved.pos);}catch(e){} lastPos=saved.pos; curT.textContent=fmt(saved.pos); if(d) fill.style.width=Math.min(100,saved.pos/d*100)+'%'; }
+              try{widget.pause();}catch(e){}
+            });}catch(e){}
+          }});
+        } else { titles(); try{widget.play();}catch(e){} }
         widget.bind(SC.Widget.Events.PLAY,function(){ui(true);});
         widget.bind(SC.Widget.Events.PAUSE,function(){ui(false);});
         widget.bind(SC.Widget.Events.FINISH,function(){ load(i+1,true); });
-        try{widget.play();}catch(e){}
+        widget.bind(SC.Widget.Events.PLAY_PROGRESS,function(e){ if(seeking)return; lastPos=e.currentPosition; if(duration){ fill.style.width=Math.min(100,e.currentPosition/duration*100)+'%'; curT.textContent=fmt(e.currentPosition); } var t=Date.now(); if(t-lastSave>2500){ lastSave=t; save(); } });
       });
       function firstGesture(){ if(ready&&!playing){ try{widget.play();}catch(e){} } window.removeEventListener('pointerdown',firstGesture); window.removeEventListener('keydown',firstGesture); window.removeEventListener('touchstart',firstGesture); }
-      window.addEventListener('pointerdown',firstGesture);
-      window.addEventListener('touchstart',firstGesture);
-      window.addEventListener('keydown',firstGesture);
+      window.addEventListener('pointerdown',firstGesture); window.addEventListener('touchstart',firstGesture); window.addEventListener('keydown',firstGesture);
       pp.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; playing?widget.pause():widget.play(); });
-      nxt.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; load(i+1,true); });
+      $('p-nxt').addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; load(i+1,true); });
+      $('p-toggle').addEventListener('click',function(e){ e.stopPropagation(); el.classList.toggle('open'); });
+      $('p-close').addEventListener('click',function(e){ e.stopPropagation(); el.classList.remove('open'); });
+      function px(ev){ var r=seek.getBoundingClientRect(), cx=ev.touches?ev.touches[0].clientX:ev.clientX; return Math.max(0,Math.min(1,(cx-r.left)/r.width)); }
+      seek.addEventListener('pointerdown',function(ev){ if(!ready||!duration)return; dragging=true; seeking=true; var x=px(ev); fill.style.width=(x*100)+'%'; curT.textContent=fmt(x*duration); try{seek.setPointerCapture(ev.pointerId);}catch(e){} });
+      seek.addEventListener('pointermove',function(ev){ if(!dragging)return; var x=px(ev); fill.style.width=(x*100)+'%'; curT.textContent=fmt(x*duration); });
+      seek.addEventListener('pointerup',function(ev){ if(!dragging)return; dragging=false; var x=px(ev); try{widget.seekTo(Math.floor(x*duration));}catch(e){} setTimeout(function(){seeking=false;},250); });
+      window.addEventListener('pagehide',save); window.addEventListener('beforeunload',save);
     }
     function waitSC(n){ if(window.SC&&window.SC.Widget){init();} else if(window.__scBlocked){fallback();} else if(n>0){setTimeout(function(){waitSC(n-1);},150);} else {fallback();} }
     waitSC(40);
