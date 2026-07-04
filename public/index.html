@@ -543,8 +543,11 @@
         widget.bind(SC.Widget.Events.PLAY,function(){ui(true);});
         widget.bind(SC.Widget.Events.PAUSE,function(){ui(false);});
         widget.bind(SC.Widget.Events.FINISH,function(){ load(i+1,true); });
-        widget.bind(SC.Widget.Events.PLAY_PROGRESS,function(e){ if(seeking)return; lastPos=e.currentPosition; if(duration){ fill.style.width=Math.min(100,e.currentPosition/duration*100)+'%'; curT.textContent=fmt(e.currentPosition); } var t=Date.now(); if(t-lastSave>2500){ lastSave=t; save(); } });
+        widget.bind(SC.Widget.Events.PLAY_PROGRESS,function(e){ if(seeking||dragging)return; upd(e.currentPosition); });
       });
+      function upd(pos){ if(pos==null||seeking||dragging) return; lastPos=pos; if(!duration){ try{widget.getDuration(function(d){ if(d){ duration=d; durT.textContent=fmt(d); } });}catch(e){} } curT.textContent=fmt(pos); if(duration){ fill.style.width=Math.min(100,pos/duration*100)+'%'; } var t=Date.now(); if(t-lastSave>2500){ lastSave=t; save(); } }
+      /* iOS fallback: PLAY_PROGRESS wordt daar vaak niet gevuurd -> poll de positie zelf */
+      setInterval(function(){ if(!ready||!playing||seeking||dragging) return; try{ widget.getPosition(function(p){ upd(p); }); }catch(e){} },700);
       function firstGesture(){ if(ready&&!playing){ try{widget.play();}catch(e){} } window.removeEventListener('pointerdown',firstGesture); window.removeEventListener('keydown',firstGesture); window.removeEventListener('touchstart',firstGesture); }
       window.addEventListener('pointerdown',firstGesture); window.addEventListener('touchstart',firstGesture); window.addEventListener('keydown',firstGesture);
       pp.addEventListener('click',function(e){ e.stopPropagation(); if(!ready)return; playing?widget.pause():widget.play(); });
