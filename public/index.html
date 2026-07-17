@@ -170,6 +170,22 @@
   .pola.add .img{background:repeating-linear-gradient(45deg,#efe9f7,#efe9f7 12px,#e6def2 12px,#e6def2 24px);color:#9b8fc0}
   @media(max-width:560px){.pola .img{width:150px;height:150px}}
 
+  /* CAMPAGNE VIDEO'S */
+  .vids{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:54px}
+  @media(max-width:900px){.vids{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:600px){.vids{grid-template-columns:repeat(2,1fr);gap:11px}}
+  .vid{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#0c0722 center/cover no-repeat;border:1px solid rgba(255,255,255,.1);cursor:pointer;box-shadow:0 14px 30px rgba(0,0,0,.4);transition:transform .25s,box-shadow .25s}
+  .vid:hover{transform:translateY(-4px);box-shadow:0 22px 44px rgba(0,0,0,.55)}
+  .vid img,.vid video{width:100%;height:100%;object-fit:cover;display:block}
+  .vid .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(to top,rgba(6,4,20,.62),rgba(6,4,20,.05) 55%);transition:background .25s}
+  .vid:hover .play{background:linear-gradient(to top,rgba(6,4,20,.5),rgba(6,4,20,0) 60%)}
+  .vid .play svg{width:52px;height:52px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));transition:transform .2s}
+  .vid:hover .play svg{transform:scale(1.1)}
+  .vid .lbl{position:absolute;left:12px;right:12px;bottom:12px;font-family:'Clash Display';font-weight:600;font-size:15px;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.65);pointer-events:none}
+  .vid .lbl small{display:block;font-family:'General Sans';font-weight:500;font-size:12px;opacity:.82;margin-top:3px;letter-spacing:.01em}
+  .vid.playing{cursor:default}
+  .vid.playing .play,.vid.playing .lbl{display:none}
+
   /* INSTA CTA */
   .insta{background:linear-gradient(120deg,#FF6B5E,#FF3D81 45%,#B5179E);border-radius:32px;padding:clamp(40px,7vw,72px);text-align:center;overflow:hidden;position:relative}
   .insta h2{font-size:clamp(30px,5vw,56px);font-weight:700}
@@ -348,6 +364,41 @@
       <div class="slot reveal"><div class="t">+ meer namen</div><div class="meta">B2B's &amp; specials volgen<br><span class="badge">Binnenkort</span></div></div>
     </div>
   </div>
+</section>
+
+<!-- CAMPAGNE VIDEO'S -->
+<section class="pad" id="films" style="padding-top:0">
+  <div class="wrap">
+    <span class="tag reveal">De natuurdocumentaire</span>
+    <h2 class="reveal">De bewoners van Schelpenfissa 🐚</h2>
+    <p class="lead reveal">Elke act is een dier. Plechtig verteld, met ondertiteling. Tik om te kijken. 🔊</p>
+    <div class="vids" id="films-grid">
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel Deepstepper" data-src="video/deepstepper.mp4" style="background-image:url(video/deepstepper.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">Deepstepper<small>de anglerfish</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel DJ SamSonight" data-src="video/samsonight.mp4" style="background-image:url(video/samsonight.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">DJ SamSonight<small>de heremietkreeft</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel DJ Tale Untold" data-src="video/taleuntold.mp4" style="background-image:url(video/taleuntold.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">DJ Tale Untold<small>de uil</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel Shawne" data-src="video/shawne.mp4" style="background-image:url(video/shawne.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">Shawne<small>de zeester</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel Disco Kat" data-src="video/discokat.mp4" style="background-image:url(video/discokat.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">Disco Kat<small>de huiskat</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel DJ Wallie" data-src="video/wallie.mp4" style="background-image:url(video/wallie.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">DJ Wallie<small>de stoner-orka</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel De hoeder van het koude" data-src="video/octopus.mp4" style="background-image:url(video/octopus.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">De hoeder van het koude<small>de octopus-barman</small></span></div>
+      <div class="vid reveal" role="button" tabindex="0" aria-label="Speel De geheime opruimploeg" data-src="video/opruimploeg.mp4" style="background-image:url(video/opruimploeg.jpg)"><span class="play"><svg viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="40" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2.5"/><path d="M34 27l24 15-24 15z" fill="#fff"/></svg></span><span class="lbl">De geheime opruimploeg<small>hou 't strand mooi</small></span></div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var g=document.getElementById('films-grid'); if(!g) return;
+    function play(el){
+      if(el.classList.contains('playing')) return;
+      g.querySelectorAll('video').forEach(function(v){try{v.pause();}catch(e){}});
+      var v=document.createElement('video');
+      v.src=el.getAttribute('data-src'); v.controls=true; v.autoplay=true;
+      v.setAttribute('playsinline',''); v.playsInline=true; v.style.background='#000';
+      el.appendChild(v); el.classList.add('playing');
+      var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    }
+    g.addEventListener('click',function(e){ var el=e.target.closest('.vid'); if(el&&!el.classList.contains('playing')) play(el); });
+    g.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ var el=e.target.closest('.vid'); if(el){ e.preventDefault(); play(el);} } });
+  })();
+  </script>
 </section>
 
 <!-- PHOTOS -->
